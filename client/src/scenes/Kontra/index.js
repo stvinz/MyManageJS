@@ -5,7 +5,7 @@ import React from 'react';
 
 function Kontra(){
     return ( 
-        null
+        <p>Kontra</p>
     );
 }
 

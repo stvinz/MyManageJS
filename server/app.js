@@ -6,6 +6,14 @@ const express = require("express");
 const app = express();
 const bodyParser = require('body-parser');
 
+// Temp development
+const cors = require('cors');
+const corsOps = {
+    origin: 'http://localhost:3000'
+};
+
+app.use(cors(corsOps));
+
 /*------------------
     Run Bootstraps
 --------------------*/

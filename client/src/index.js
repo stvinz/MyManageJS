@@ -1,18 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ThemeProvider, CssBaseline } from '@material-ui/core';
-import { Router } from "react-router-dom";
-import { createBrowserHistory } from "history";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import theme from './theme';
 
-const history = createBrowserHistory();
-
 ReactDOM.render(
   <React.StrictMode>
-    <Router history={history}>
+    <Router basename="/">
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <App />

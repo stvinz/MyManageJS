@@ -2,7 +2,7 @@ import axios from 'axios';
 import _ from 'lodash';
 
 const api = axios.create({
-    baseUrl: process.env.API_URL
+    baseURL: process.env.REACT_APP_API_URL
 });
 
 const post = (route, input = null) =>
@@ -49,4 +49,44 @@ const get = (route, input = null) =>
         }
     });
 
-export default { post, get };
+const put = (route, input = null) => 
+    new Promise(async (resolve, reject) => {
+        try {
+            const putOps = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+
+            const res = await api.put(route, JSON.stringify(input), putOps);
+            
+            if (res.err) {
+                reject(res.err);
+            }
+            else {
+                resolve(res);
+            }
+        }
+        catch (err) {
+            reject(err);
+        }
+    });
+
+const del = (route, input = null) => 
+    new Promise(async (resolve, reject) => {
+        try {
+            const res = await api.delete(route, JSON.stringify(input));
+            
+            if (res.err) {
+                reject(res.err);
+            }
+            else {
+                resolve(res);
+            }
+        }
+        catch (err) {
+            reject(err);
+        }
+    });
+
+export default { post, get, put, del };

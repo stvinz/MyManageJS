@@ -1,7 +1,10 @@
 const NotaServices = require('../services/NotaServices');
 
 exports.get = async (req, res) => {
-    return res.json({msg: "get nota"});
+    const criteria = req.body;
+    const data = await NotaServices.get(criteria);
+
+    return res.json(data);
 }
 
 exports.post = async (req, res) => {

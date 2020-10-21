@@ -9,7 +9,7 @@ const nota_schema = joi.object().keys({
     name: joi.string().min(3).max(30).required(),
     dateCreated: joi.date().max('now').iso().required(),
     total: joi.number().required(),
-    highlighted: joi.boolean(),
+    highlighted: joi.boolean().default(false),
 });
 
 exports.save = async (data) => {
@@ -31,7 +31,28 @@ exports.save = async (data) => {
 };
 
 exports.get = async (criteria) => {
+    var data = [];
+    const def = {
+        limit: 20,
+        page: 1,
+    };
+    const aggregate = Nota.aggregate();
 
+    aggregate.limit(criteria.limit ? criteria.limit : def.limit)
+        .skip((criteria.page ? criteria.page - 1 : def.page - 1) * (criteria.limit ? criteria.limit : def.limit))
+    
+    try{
+        data = await aggregate.exec();
+        
+        if (!data) {
+            data = [];
+        }
+    }
+    catch (err) {
+        debug(err);
+    }
+
+    return data;
 };
 
 exports.update = (data) => {

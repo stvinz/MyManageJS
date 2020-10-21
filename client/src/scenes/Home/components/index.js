@@ -1,6 +1,7 @@
 /*--------------------
     Home Components
 ---------------------*/
-import TableForm from './TableForm';
+import AddForm from './AddForm';
+import EDHForm from './EDHForm';
 
-export {TableForm};
+export { AddForm, EDHForm };
