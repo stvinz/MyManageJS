@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { Paper, TableContainer } from '@material-ui/core';
 import { contextMenu } from 'react-contexify';
 
-import { AddForm, EDHForm } from './components';
+import { EDHForm } from './components';
 import { TableView } from '../../components';
 
 import { nota } from '../../services';
@@ -47,7 +47,6 @@ function Home(){
 
     return (
         <div>
-            
             <TableContainer component={Paper}>
                 <TableView titles={titles} names={names} content={content} onContextMenu={handleContext} />
             </TableContainer>

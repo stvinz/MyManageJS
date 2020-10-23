@@ -2,13 +2,14 @@
       Search Form
 ---------------------*/
 import React from 'react';
-import { TextField, Button, Grid, makeStyles } from '@material-ui/core';
+import { TextField, Button, Grid, makeStyles, Paper } from '@material-ui/core';
 
 const textFieldStyle = { InputLabelProps: {shrink: true}, variant: "outlined" };
 
 const useStyles = makeStyles({
     root: {
         padding: "1% 1%",
+        backgroundColor: '#f7f7f7'
     },
 });
 
@@ -17,7 +18,7 @@ function SearchForm(){
 
     return ( 
         <form>
-            <Grid container className={ classes.root }>
+            <Grid container className={ classes.root } component={Paper} spacing={2} alignItems="center">
                 <Grid item>
                 <TextField id="id" label="No Bon" {...textFieldStyle} />
                 </Grid>

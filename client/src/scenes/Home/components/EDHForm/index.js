@@ -2,46 +2,16 @@
     Forms and Modal in Home
 -----------------------------*/
 import React, { useState } from 'react';
-import { Modal, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { Menu, Item } from 'react-contexify';
-import { makeStyles } from '@material-ui/core';
 
-import { DeleteForm } from './components';
+import { EditForm, DeleteForm } from './components';
+import { CustModal } from '../../../../components';
 import { nota } from '../../../../services';
 
 import 'react-contexify/dist/ReactContexify.min.css';
 
-const modalWidth = 500;
-
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        position: 'absolute',
-        width: modalWidth,
-        backgroundColor: theme.palette.background.paper,
-        border: '2px solid #000',
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
-    },
-}));
-
-const getModalStyle = () => {
-    const vw = window.outerWidth;
-    const top = 15;
-    const left = ((1 - modalWidth / vw) * 100 / 2) + 4;
-
-    return {
-        top: `${top}%`,
-        left: `${left}%`,
-        transform: `translate(-${top}%, -${left}%)`,
-    };
-};
-
 function TableForm(){
-    /*--------------------
-        Class Components
-    ---------------------*/
-    const classes = useStyles();
-    
     /*----------------------------
         ContextMenu Handlers
     ----------------------------*/
@@ -68,7 +38,6 @@ function TableForm(){
         Component and Modals
     ---------------------------*/
     const EDH_ID = "edh_id";
-    const [modalStyle] = useState(getModalStyle);
     const [opDel, setOpDel] = useState(false);
     const [data, setData] = useState({});
     const [opEdit, setOpEdit] = useState(false);
@@ -93,20 +62,17 @@ function TableForm(){
     };
 
     const DeleteModal = () => (
-        <Modal open={opDel} onClose={cl}>
-            <div style={modalStyle} className={classes.paper}>
-                <Typography variant="h6" component="h6">Hapus bon <WarningText>{data.id}</WarningText> dengan nama <WarningText>{data.name}</WarningText> ?</Typography>
-                <DeleteForm data={data} onClose={cl} />
-            </div>
-        </Modal>
+        <CustModal open={opDel} onClose={cl}>
+            <Typography variant="h6" component="h6">Hapus bon <WarningText>{data.id}</WarningText> dengan nama <WarningText>{data.name}</WarningText> ?</Typography>
+            <DeleteForm data={data} onClose={cl} />
+        </CustModal>
     );
 
     const EditModal = () => (
-        <Modal open={opEdit} onClose={cl}>
-            <div style={modalStyle} className={classes.paper}>
-                <p>Hello</p>
-            </div>
-        </Modal>
+        <CustModal open={opEdit} onClose={cl}>
+            <Typography variant="h6" component="h6">Edit bon <WarningText>{data.id}</WarningText> dengan nama <WarningText>{data.name}</WarningText></Typography>
+            <EditForm data={data} onClose={cl} />
+        </CustModal>
     );
 
     return ( 

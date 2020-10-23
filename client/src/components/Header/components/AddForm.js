@@ -2,22 +2,26 @@
     Add Form Components
 ------------------------*/
 import React, { useState } from 'react';
-import { Input } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import { Formik, Field, Form } from 'formik';
 import { TextField } from 'formik-material-ui';
 
-import { nota } from '../../../../services';
+import { CustModal } from '../../../components';
+import { nota } from '../../../services';
 
-function AddForm() {
+function AddForm(props) {
     const textFieldStyle = { 
         InputLabelProps: {shrink: true}, 
         variant: "outlined", 
         required: true, 
-        fullWidth: true 
+        fullWidth: true,
+        style: {
+            margin: "15px 0px"
+        }
     };
     const initialValues = {
         id: '', 
-        dateCreated: '', 
+        dateCreated: new Date().toISOString().substr(0, 10), 
         name: '', 
         total: ''
     };
@@ -57,25 +61,22 @@ function AddForm() {
             });
     };
     const [err, setErr] = useState(initErr);
-
-    /*const AddModal = () => (
-        <Modal open={op} onClose={cl}>
-            <div style={modalStyle}>
-                <p>Hello</p>
-            </div>
-        </Modal>
-    );*/
+    
+    const cl = () => props.onClose();
     
     return (
-        <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-            <Form>
-                <Field component={TextField} label="No Bon" {...textFieldStyle} {...binder('id')} autoFocus />
-                <Field component={TextField} label="Tanggal" type="date" {...textFieldStyle} {...binder('dateCreated')} />
-                <Field component={TextField} label="Nama" {...textFieldStyle} {...err.name} {...binder('name')} />
-                <Field component={TextField} label="Jumlah" {...textFieldStyle} {...err.total} {...binder('total')} />
-                <Input type="submit" />
-            </Form>
-        </Formik>
+        <CustModal open={props.open} onClose={cl}>
+            <Typography variant="h6" component="h6">Tambah bon baru</Typography>
+            <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+                <Form>
+                    <Field component={TextField} label="No Bon" {...textFieldStyle} {...binder('id')} autoFocus />
+                    <Field component={TextField} label="Tanggal" type="date" {...textFieldStyle} {...binder('dateCreated')} />
+                    <Field component={TextField} label="Nama" {...textFieldStyle} {...err.name} {...binder('name')} />
+                    <Field component={TextField} label="Jumlah" {...textFieldStyle} {...err.total} {...binder('total')} />
+                    <Button type="submit" variant="contained">Tambah</Button>
+                </Form>
+            </Formik>
+        </CustModal>
     );
 }
 

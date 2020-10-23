@@ -2,42 +2,48 @@
         Header
 ---------------------*/
 import React, { useState } from 'react';
-import { AppBar, Toolbar, IconButton, Typography, Collapse, Box } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, Typography, Collapse, Box, makeStyles } from '@material-ui/core';
 import RefreshIcon from '@material-ui/icons/Refresh';
-import SaveIcon from '@material-ui/icons/Save';
-import MenuIcon from '@material-ui/icons/Menu';
+import AddIcon from '@material-ui/icons/Add';
 import SearchIcon from '@material-ui/icons/Search';
 import { useHistory } from 'react-router-dom';
 
-import SearchForm from '../SearchForm';
+import { AddForm, SearchForm } from './components';
+
+const useStyles = makeStyles((theme) => ({
+    typography: {
+        padding: '0 10px'
+    },
+}));
 
 function Header(){
     var history = useHistory();
+    const classes = useStyles();
 
     const pages = ['/home', '/kontra'];
     const [ searchState, setSearchState ] = useState(false);
+    const [ addState, setAddState ] = useState(false);
     const [ cur_page, switchPage ] = useState(1);
 
     return ( 
         <div className="header">
             <AppBar position="static">
                 <Toolbar>
-                    <Typography component="h1" variant="h5">MyManage</Typography>
-                    <IconButton onClick={() => {
-                        history.push(pages[cur_page]);
-                        return switchPage(cur_page === 1 ? 0 : 1);
-                    }}>
-                        <RefreshIcon />
-                    </IconButton>
+                    <Typography component="h1" variant="h5" className={classes.typography}>MyManage</Typography>
                     <IconButton>
-                        <SaveIcon />
+                        <AddIcon onClick={() => setAddState(!addState)} />
                     </IconButton>
-                    <IconButton onClick={() => {setSearchState(!searchState);}}>
+                    <IconButton onClick={() => setSearchState(!searchState)}>
                         <SearchIcon />
                     </IconButton>
-                    <IconButton>
-                        <MenuIcon />
-                    </IconButton>
+                    <div style={{marginLeft: 'auto'}}>
+                        <IconButton onClick={() => {
+                            history.push(pages[cur_page]);
+                            return switchPage(cur_page === 1 ? 0 : 1);
+                        }}>
+                            <RefreshIcon />
+                        </IconButton>
+                    </div>
                 </Toolbar>
             </AppBar>
             <Box>
@@ -45,6 +51,7 @@ function Header(){
                     <SearchForm />
                 </Collapse>
             </Box>
+            <AddForm open={ addState } onClose={() => setAddState(!addState)}/>
         </div>
     );
 }
