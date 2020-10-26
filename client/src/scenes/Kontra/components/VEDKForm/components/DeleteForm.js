@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, makeStyles, Box } from '@material-ui/core';
-import { nota } from '../../../../../services';
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -22,11 +21,9 @@ function DeleteForm(props) {
             id: props.data.id
         };
 
-        nota.del(input)
-            .then((value) => props.onClose())
-            .catch((err) => window.alert("Gagal menghapus!"));
+        console.log(input);
     };
-
+    
     return (
         <Box className={classes.box}>
             <Button variant="contained" onClick={handleNo} className={classes.button} autoFocus>No</Button>

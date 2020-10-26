@@ -89,4 +89,6 @@ const del = (route, input = null) =>
         }
     });
 
-export default { post, get, put, del };
+const endPoints = { post, get, put, del }; 
+
+export default endPoints;

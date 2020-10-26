@@ -91,4 +91,6 @@ const get = (input) =>
         }
     });
 
-export default { add, get, highlight, del, edit };
+const nota = { add, get, highlight, del, edit };
+
+export default nota;

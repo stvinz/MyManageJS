@@ -65,8 +65,8 @@ function EditForm(props) {
                 <Form>
                     <Field component={TextField} label="No Bon" {...textFieldStyle} {...binder('id')} autoFocus />
                     <Field component={TextField} label="Tanggal" type="date" {...textFieldStyle} {...binder('dateCreated')} />
-                    <Field component={TextField} label="Nama" {...textFieldStyle} {...err.name} {...binder('name')} />
-                    <Field component={TextField} label="Jumlah" {...textFieldStyle} {...err.total} {...binder('total')} />
+                    <Field component={TextField} label="Nama" {...textFieldStyle} {...binder('name')} />
+                    <Field component={TextField} label="Jumlah" {...textFieldStyle} {...binder('total')} />
                     <Button type="submit" variant="contained">Edit</Button>
                 </Form>
             </Formik>
