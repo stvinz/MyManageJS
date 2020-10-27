@@ -8,7 +8,8 @@ const NotaSchema = mongoose.Schema({
     name: {type: String, required: true},
     dateCreated: {type: Date, default: Date.now, required: true},
     total : {type: Number, required: true},
-    highlighted: {type: Boolean, default: false, required: true}
+    highlighted: {type: Boolean, default: false, required: true},
+    deleted: {type: Boolean, default: false, required: true}
 });
 
 const Nota = mongoose.model('Nota', NotaSchema);

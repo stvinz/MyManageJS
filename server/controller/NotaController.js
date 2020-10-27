@@ -24,3 +24,12 @@ exports.put = async (req, res) => {
         res.json({msg: "update nota"}): 
         res.json({msg: "fail update"});
 };
+
+exports.delete = async (req, res) => {
+    const data = req.params['id'];
+    const success = await NotaServices.update(data);
+
+    return success ? 
+        res.json({msg: "delete nota"}): 
+        res.json({msg: "fail update"});
+};

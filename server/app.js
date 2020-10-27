@@ -4,7 +4,6 @@
 const createError = require('http-errors');
 const express = require("express");
 const app = express();
-const bodyParser = require('body-parser');
 
 // Temp development
 const cors = require('cors');
@@ -23,8 +22,8 @@ require('./bootstrap/database');
 /*-----------------
     Data Parser
 ------------------*/
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 /*----------------------
         Routes

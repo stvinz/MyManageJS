@@ -4,7 +4,7 @@
 const queryParser = (req, res, next) => {
     var data = {};
     
-    if (req.query) {
+    if (req.query && Object.keys(req.query).length > 0) {
         Object.keys(req.query).forEach(field => {
             data[field] = decodeURIComponent(req.query[field]);
         });
