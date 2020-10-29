@@ -5,7 +5,6 @@ import React from 'react';
 import { Box, Divider, makeStyles, Typography } from '@material-ui/core';
 import { grey } from '@material-ui/core/colors';
 
-
 const useStyles = makeStyles({
     root: {
         backgroundColor: grey[50]

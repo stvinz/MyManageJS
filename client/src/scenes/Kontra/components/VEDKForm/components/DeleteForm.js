@@ -1,5 +1,7 @@
 import React from 'react';
-import { Button, makeStyles, Box } from '@material-ui/core';
+import { makeStyles, Box } from '@material-ui/core';
+
+import { CustButton } from '../../../../../components/CustForm';
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -26,8 +28,8 @@ function DeleteForm(props) {
     
     return (
         <Box className={classes.box}>
-            <Button variant="contained" onClick={handleNo} className={classes.button} autoFocus>No</Button>
-            <Button variant="contained" onClick={handleYes} className={classes.button}>Yes</Button>
+            <CustButton onClick={handleNo} className={classes.button} autoFocus>No</CustButton>
+            <CustButton onClick={handleYes} className={classes.button}>Yes</CustButton>
         </Box>
     );
 }

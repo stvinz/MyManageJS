@@ -4,6 +4,8 @@
 import React from 'react';
 import { TextField, Button, Grid, makeStyles, Paper } from '@material-ui/core';
 
+import { CustTextField, CustButton } from '../../CustForm';
+
 const textFieldStyle = { InputLabelProps: {shrink: true}, variant: "outlined" };
 
 const useStyles = makeStyles({

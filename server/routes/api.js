@@ -6,13 +6,14 @@ const NotaController = require('../controller/NotaController');
 const router = express.Router();
 
 // Search + view all + get last nota
-router.get('/nota', NotaController.get);
+router.get('/nota', NotaController);
 // Save new nota
-router.post('/nota', NotaController.post);
+router.post('/nota', NotaController);
 // Update old nota + highlight
-router.put('/nota', NotaController.put);
+router.put('/nota', NotaController);
 // Delete nota
-router.delete('/nota/:id', NotaController.delete);
+router.delete('/nota/:id', NotaController);
+
 /*
 // Search + view all
 router.get('/kontra', KontraController.get);

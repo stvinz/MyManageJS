@@ -3,12 +3,13 @@
 ---------------------*/
 import React, { useState } from 'react';
 import { AppBar, Toolbar, IconButton, Typography, Collapse, Box, makeStyles, Grid } from '@material-ui/core';
-import RefreshIcon from '@material-ui/icons/Refresh';
-import AddIcon from '@material-ui/icons/Add';
-import SearchIcon from '@material-ui/icons/Search';
 import { useHistory } from 'react-router-dom';
 
 import { AddForm, SearchForm } from './components';
+
+import RefreshIcon from '@material-ui/icons/Refresh';
+import AddIcon from '@material-ui/icons/Add';
+import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles((theme) => ({
     typography: {

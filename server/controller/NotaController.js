@@ -1,35 +1,38 @@
 const NotaServices = require('../services/NotaServices');
 
-exports.get = async (req, res) => {
-    const criteria = req.body;
-    const data = await NotaServices.get(criteria);
+const NotaController = async (req, res) => {
+    var input = req.body;
+    var data, msg, status = 200;
 
-    return res.json(data);
-}
+    try {
+        switch (req.method) {
+            case "GET":
+                data = await NotaServices.get(input);
+                msg = "Success get!";
+                break;
+            case "POST":
+                data = await NotaServices.save(input);
+                msg = "Success save!";
+                status = 201;
+                break;
+            case "PUT":
+                data = await NotaServices.update(input);
+                msg = "Success update!";
+                break;
+            case "DELETE":
+                input = req.params["id"];
+                data = await NotaServices.del(input);
+                msg = "Success delete!";
+                break;
+        }
+    }
+    catch (err) {
+        data = null;
+        msg = err.message;
+        status = 400;
+    }
 
-exports.post = async (req, res) => {
-    const data = req.body;
-    const success = await NotaServices.save(data);
-
-    return success ? 
-        res.json({msg: "post nota"}): 
-        res.json({msg: "fail save"});
-}
-
-exports.put = async (req, res) => {
-    const data = req.body;
-    const success = await NotaServices.update(data);
-
-    return success ? 
-        res.json({msg: "update nota"}): 
-        res.json({msg: "fail update"});
+    return res.status(status).json({data: data, msg: msg});
 };
 
-exports.delete = async (req, res) => {
-    const data = req.params['id'];
-    const success = await NotaServices.update(data);
-
-    return success ? 
-        res.json({msg: "delete nota"}): 
-        res.json({msg: "fail update"});
-};
+module.exports = NotaController;

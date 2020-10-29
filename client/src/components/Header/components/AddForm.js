@@ -2,34 +2,11 @@
     Add Form Components
 ------------------------*/
 import React, { useState } from 'react';
-import { Button, Typography, IconButton, Divider, Box, makeStyles } from '@material-ui/core';
-import { Formik, Field, Form, FieldArray } from 'formik';
-import { TextField } from 'formik-material-ui';
-import { TextField as TextFieldOri } from '@material-ui/core';
-import { Autocomplete } from 'formik-material-ui-lab';
 
-import RemoveIcon from '@material-ui/icons/Remove';
-
-import { CustModal } from '../../../components';
+import { CustModal, NotaForm, KontraForm } from '../../../components';
 import { nota } from '../../../services';
 
-const useStyles = makeStyles((theme) => ({
-    textfield: {
-        margin: "10px 0"
-    }
-}));
-
 function AddForm(props) {
-    const classes = useStyles();
-    const textFieldStyle = { 
-        InputLabelProps: {shrink: true}, 
-        variant: "outlined", 
-        required: true, 
-        fullWidth: true,
-        style: {
-            margin: "15px 0px"
-        }
-    };
     const cl = () => props.onClose();
 
     const AddNota = () => {
@@ -45,13 +22,13 @@ function AddForm(props) {
             dateCreated: false,
             total: false
         };
-        
-        const handleSubmit = (values, { setSubmitting }) => {
+        const handleSubmit = (values, { setSubmitting, resetForm }) => {
             nota.add(values)
-                .then((res) => {
-                    console.log(res);
-    
-                    return setSubmitting(true);
+                .then(() => {
+                    window.alert("Berhasil tambah bon baru!");
+                    
+                    resetForm();
+                    return setSubmitting(false);
                 })
                 .catch((err) => {
                     window.alert(err);
@@ -71,25 +48,17 @@ function AddForm(props) {
                     return setSubmitting(false);
                 });
         };
+
         const [err, setErr] = useState(initErr);
-        const binder = (name) => ({
-            name: name,
-            error: err[name]
-        });
 
         return (
-            <div>
-                <Typography variant="h6" component="h6">Tambah bon baru</Typography>
-                <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-                    <Form>
-                        <Field component={TextField} label="No Bon" {...textFieldStyle} {...binder('id')} autoFocus />
-                        <Field component={TextField} label="Tanggal" type="date" {...textFieldStyle} {...binder('dateCreated')} />
-                        <Field component={TextField} label="Nama" {...textFieldStyle} {...binder('name')} />
-                        <Field component={TextField} label="Jumlah" {...textFieldStyle} {...binder('total')} />
-                        <Button type="submit" variant="contained">Tambah</Button>
-                    </Form>
-                </Formik>
-            </div>
+            <NotaForm 
+                title="Tambah Bon Baru" 
+                submitButton="Tambah" 
+                error={err} 
+                initialValues={initialValues} 
+                onSubmit={handleSubmit}
+            />
         );
     };
     
@@ -117,56 +86,21 @@ function AddForm(props) {
             total: "AGKSS"
         }];
         
-        const handleSubmit = (values, { setSubmitting }) => {
+        const handleSubmit = (values, { setSubmitting, resetForm }) => {
             console.log(values);
             setSubmitting(false);
         };
         const [err, setErr] = useState(initErr);
-        const binder = (name) => ({
-            name: name,
-            error: err[name]
-        });
 
         return (
-            <div>
-                <Typography variant="h6" component="h6">Tambah kontra bon baru</Typography>
-                <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-                    {({values}) => (
-                        <Form>
-                            <Field component={TextField} label="Nama" {...textFieldStyle} {...binder('name')} />
-                            <Field component={TextField} label="Tanggal" type="date" {...textFieldStyle} {...binder('dateCreated')} />
-                            <FieldArray name="notaList">
-                                {(arrayHelpers) => (
-                                    <div>
-                                        { values.notaList && values.notaList.length > 0 && values.notaList.map((elNota, index) => (
-                                            <Box display="flex" key={index}>
-                                                <Field name={'notaList.' + index} component={Autocomplete} options={allNota} 
-                                                    getOptionSelected={(option, value) => (option.id === value.id) || (value === '')}
-                                                    getOptionLabel={(option) => (option ? (option.id + " - "+ option.name + " " + option.total) : "")}
-                                                    renderInput={(params) => <TextFieldOri className={classes.textfield} {...params} variant="outlined" label={"Bon " + (index + 1)} required/>}
-                                                    autoHighlight
-                                                    fullWidth
-                                                />
-                                                { values.notaList.length === 1 
-                                                ? null
-                                                : (<IconButton onClick={() => arrayHelpers.remove(index)}>
-                                                    <RemoveIcon />
-                                                </IconButton>)}
-                                                
-                                                { index + 1 === values.notaList.length 
-                                                ? <Button onClick={() => arrayHelpers.push('')}>Tambah Bon</Button> 
-                                                : null}
-                                            </Box>
-                                        ))}
-                                    </div>
-                                )}
-                            </FieldArray>
-                            <Divider />
-                            <Button type="submit" variant="contained">Tambah</Button>
-                        </Form>
-                    )}
-                </Formik>
-            </div>
+            <KontraForm 
+                title="Tambah Kontra Bon Baru" 
+                submitButton="Tambah" 
+                error={err} 
+                initialValues={initialValues} 
+                onSubmit={handleSubmit} 
+                options={allNota}
+            />
         );
     };
     
