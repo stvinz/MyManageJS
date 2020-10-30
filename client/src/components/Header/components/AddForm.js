@@ -3,7 +3,7 @@
 ------------------------*/
 import React, { useState } from 'react';
 
-import { CustModal, NotaForm, KontraForm } from '../../../components';
+import { CModal, LNAEForm, LKAEForm } from '../../../components';
 import { nota } from '../../../services';
 
 function AddForm(props) {
@@ -52,7 +52,7 @@ function AddForm(props) {
         const [err, setErr] = useState(initErr);
 
         return (
-            <NotaForm 
+            <LNAEForm 
                 title="Tambah Bon Baru" 
                 submitButton="Tambah" 
                 error={err} 
@@ -93,7 +93,7 @@ function AddForm(props) {
         const [err, setErr] = useState(initErr);
 
         return (
-            <KontraForm 
+            <LKAEForm 
                 title="Tambah Kontra Bon Baru" 
                 submitButton="Tambah" 
                 error={err} 
@@ -105,9 +105,9 @@ function AddForm(props) {
     };
     
     return (
-        <CustModal open={props.open} onClose={cl}>
+        <CModal open={props.open} onClose={cl}>
             {props.path === "/home" ? AddNota() : AddKontra()}
-        </CustModal>
+        </CModal>
     );
 }
 

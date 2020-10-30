@@ -12,8 +12,9 @@ const nota_schema = joi.object().keys({
         joi.number(),
         joi.string().regex(new RegExp('/^[jnsxgltpk]([jnsxgltpko])*$/i'))
     ).required().label('Total'),
-    highlighted: joi.boolean().default(false),
-    deleted: joi.boolean().default(false)
+    highlighted: joi.boolean(),
+    deleted: joi.boolean(),
+    grouped: joi.boolean()
 });
 
 const retrieve_schema = joi.object().keys({

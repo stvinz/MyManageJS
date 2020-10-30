@@ -2,7 +2,7 @@ import React from 'react';
 import { Field } from 'formik';
 import { TextField } from 'formik-material-ui';
 
-function CustTextField(props) {
+function CField(props) {
     const textFieldStyle = { 
         InputLabelProps: {shrink: true}, 
         variant: "outlined", 
@@ -18,4 +18,4 @@ function CustTextField(props) {
     );
 }
 
-export default CustTextField;
+export default CField;

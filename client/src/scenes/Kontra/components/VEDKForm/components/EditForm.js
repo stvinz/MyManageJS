@@ -3,7 +3,7 @@
 --------------------------*/
 import React, { useState } from 'react';
 
-import { KontraForm } from '../../../../../components';
+import { LKAEForm } from '../../../../../components';
 
 function EditForm(props) {
     const cl = () => props.onClose();
@@ -39,7 +39,7 @@ function EditForm(props) {
     const [err, setErr] = useState(initErr);
 
     return (
-        <KontraForm 
+        <LKAEForm 
             submitButton="Tambah" 
             error={err} 
             initialValues={initialValues} 

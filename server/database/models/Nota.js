@@ -10,6 +10,7 @@ const NotaSchema = mongoose.Schema({
     total : {type: Number, required: true},
     highlighted: {type: Boolean, default: false, required: true},
     deleted: {type: Boolean, default: false, required: true},
+    grouped: {type: Boolean, default: false, required: true},
     kontra_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Kontra', default: null}
 });
 

@@ -1,9 +1,12 @@
+/*-----------------------------------
+    Layout - Kontra Add Edit Form
+-----------------------------------*/
 import React from 'react';
 import { Typography, IconButton, Divider, Box, TextField, makeStyles } from '@material-ui/core';
 import { Formik, Form, FieldArray, Field } from 'formik';
 import { Autocomplete } from 'formik-material-ui-lab';
 
-import { CustButton, nameErrorBinder, CustTextField } from '../CustForm';
+import { CButton, nameErrorBinder, CField } from '../../components';
 
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
@@ -14,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function KontraForm(props) {
+function LKAEForm(props) {
     const classes = useStyles();
     const binder = nameErrorBinder(props.error);
 
@@ -24,8 +27,8 @@ function KontraForm(props) {
             <Formik initialValues={props.initialValues} onSubmit={props.handleSubmit}>
                 {({values}) => (
                     <Form>
-                        <CustTextField label="Nama" {...binder('name')} />
-                        <CustTextField label="Tanggal" type="date" {...binder('dateCreated')} />
+                        <CField label="Nama" {...binder('name')} />
+                        <CField label="Tanggal" type="date" {...binder('dateCreated')} />
                         <FieldArray name="notaList">
                             {(arrayHelpers) => (
                                 <div>
@@ -59,7 +62,7 @@ function KontraForm(props) {
                             )}
                         </FieldArray>
                         <Divider />
-                        <CustButton type="submit">{props.submitButton}</CustButton>
+                        <CButton type="submit">{props.submitButton}</CButton>
                     </Form>
                 )}
             </Formik>
@@ -67,4 +70,4 @@ function KontraForm(props) {
     );
 }
 
-export default KontraForm;
+export default LKAEForm;

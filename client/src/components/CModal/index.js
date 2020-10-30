@@ -25,7 +25,7 @@ const getModalStyle = () => {
     };
 };
 
-function CustModal(props) {
+function CModal(props) {
     /*--------------------
         Class Components
     ---------------------*/
@@ -45,4 +45,4 @@ function CustModal(props) {
     );
 }
 
-export default CustModal;
+export default CModal;

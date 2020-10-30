@@ -1,7 +1,7 @@
 const nameErrorBinder = (err) => 
     (name) => ({
         name: name,
-        err: err[name]
+        error: err[name]
     })
 ;
 

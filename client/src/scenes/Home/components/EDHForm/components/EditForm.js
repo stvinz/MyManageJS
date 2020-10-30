@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { NotaForm } from '../../../../../components';
+import { LNAEForm } from '../../../../../components';
 import { nota } from '../../../../../services';
 
 function EditForm(props) {
@@ -47,7 +47,7 @@ function EditForm(props) {
     const [err, setErr] = useState(initErr);
 
     return (
-        <NotaForm 
+        <LNAEForm 
             submitButton="Tambah" 
             error={err} 
             initialValues={initialValues} 

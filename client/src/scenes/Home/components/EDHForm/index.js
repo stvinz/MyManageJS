@@ -6,7 +6,7 @@ import { Typography } from '@material-ui/core';
 import { Menu, Item } from 'react-contexify';
 
 import { EditForm, DeleteForm } from './components';
-import { CustModal } from '../../../../components';
+import { CModal } from '../../../../components';
 import { nota } from '../../../../services';
 
 import 'react-contexify/dist/ReactContexify.min.css';
@@ -62,17 +62,17 @@ function TableForm(){
     };
 
     const DeleteModal = () => (
-        <CustModal open={opDel} onClose={cl}>
+        <CModal open={opDel} onClose={cl}>
             <Typography variant="h6" component="h6">Hapus bon <WarningText>{data.id}</WarningText> dengan nama <WarningText>{data.name}</WarningText> ?</Typography>
             <DeleteForm data={data} onClose={cl} />
-        </CustModal>
+        </CModal>
     );
 
     const EditModal = () => (
-        <CustModal open={opEdit} onClose={cl}>
+        <CModal open={opEdit} onClose={cl}>
             <Typography variant="h6" component="h6">Edit bon <WarningText>{data.id}</WarningText> dengan nama <WarningText>{data.name}</WarningText></Typography>
             <EditForm data={data} onClose={cl} />
-        </CustModal>
+        </CModal>
     );
 
     return ( 
