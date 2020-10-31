@@ -15,17 +15,14 @@ const nota_schema = Yup.object().shape({
     total: Yup.mixed().oneOf([
         Yup.number(), 
         Yup.string().matches(new RegExp(process.env.REACT_APP_API_NOTA_PAT))
-    ]).required().label('Total')
+    ]).required().label('Total'),
+    highlighted: Yup.boolean(),
+    grouped: Yup.boolean()
 });
 
 const retrieve_schema = Yup.object().shape({
     limit: Yup.number().min(1).default(20),
     page: Yup.number().min(1).default(1)
-});
-
-const highlight_schema = Yup.object().shape({
-    id: Yup.number().required(),
-    highlighted: Yup.boolean()
 });
 
 const notaServices = (method) => 
@@ -51,8 +48,9 @@ const notaServices = (method) =>
                         data = await api.delete(routes.nota(), input);
                         break;
                     case "highlight":
-                        input = await highlight_schema.validate(input);
-                        data = await api.post(routes.nota(), input);
+                        input.highlighted = !input.highlighted;
+                        input = await nota_schema.validate(input);
+                        data = await api.put(routes.nota(), input);
                         break;
                     case "search":
                         break;

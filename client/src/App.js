@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Route, Switch } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import { Container } from '@material-ui/core';
 
 import { Header, Footer } from './components';
 import { Home, Kontra } from './scenes';
-import { refresh } from './slices/notaSlices';
 
 const useStyles = makeStyles({
   container: {
@@ -17,10 +16,6 @@ const useStyles = makeStyles({
 
 function App() {
   const classes = useStyles();
-
-  useEffect(() => {
-    refresh();
-  });
 
   return (
     <div className="App">

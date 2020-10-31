@@ -1,13 +1,14 @@
 /*--------------------
       Home page
 ---------------------*/
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Paper, TableContainer } from '@material-ui/core';
 import { contextMenu } from 'react-contexify';
-import { useSelector } from 'react-redux';
 
 import { EDHForm } from './components';
 import { TableView } from '../../components';
+
+import { nota } from '../../services';
 
 function Home(){
     /*-------------------
@@ -15,7 +16,12 @@ function Home(){
     --------------------*/
     const titles = ["No. Bon", "Tanggal", "Nama", "Jumlah"];
     const names = ["id", "dateCreated", "name", "total"];
-    const content = useSelector(state => state.nota);
+    const [content, upContent] = useState([{
+        "id":1,
+        "name":"John",
+        "total":120,
+        "dateCreated":"2020-10-28T13:16:49.000Z",
+    }]);
     
     /*---------------------------
         Component and Modals

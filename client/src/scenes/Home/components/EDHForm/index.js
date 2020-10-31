@@ -26,12 +26,7 @@ function TableForm(){
     };
 
     const handleHighlight = ({ props }) => {
-        const input = {
-            id: props.nota.id
-        };
-        nota.highlight(input)
-            .then((value) => console.log(value))
-            .catch((err) => console.log(err));
+        
     };
 
     /*---------------------------
