@@ -4,20 +4,33 @@ const joi = require('joi');
 const mongoose = require('mongoose');
 const Nota = mongoose.model('Nota');
 
-const nota_schema = joi.object().keys({
+const post_schema = joi.object().keys({
     id: joi.number().required().label('No. Bon'),
     name: joi.string().min(3).max(30).required().label('Nama'),
     dateCreated: joi.date().max('now').iso().required().label('Tanggal'),
-    total: joi.alternatives(
+    total: joi.alternatives().try(
         joi.number(),
         joi.string().regex(new RegExp('/^[jnsxgltpk]([jnsxgltpko])*$/i'))
-    ).required().label('Total'),
-    highlighted: joi.boolean(),
-    deleted: joi.boolean(),
-    grouped: joi.boolean()
+    ).required().label('Total')
 });
 
-const retrieve_schema = joi.object().keys({
+const highlighted_schema = joi.object().keys({
+    id: joi.number().required().label('No. Bon'),
+    highlighted: joi.boolean().required()
+});
+
+const grouped_schema = joi.object().keys({
+    id: joi.number().required().label('No. Bon'),
+    grouped: joi.boolean().required()
+});
+
+const update_schema = joi.alternatives().try(
+    post_schema,
+    grouped_schema,
+    highlighted_schema
+).required();
+
+const get_schema = joi.object().keys({
     limit: joi.number(),
     page: joi.number()
 }).with('limit', 'page');
@@ -29,13 +42,13 @@ const updateOps = {
 exports.save = async (input) => 
     new Promise(async (resolve, reject) => {
         try {
-            input = await nota_schema.validateAsync(input);
+            input = await post_schema.validateAsync(input);
 
             if (!(typeof input.total === 'number' && isFinite(input.total))) {
                 // Convert from pattern to numbers
             }
             
-            var data = await Nota.findOneAndUpdate({id: input.id, deleted: true}, input, {upsert: true, ...updateOps});
+            var data = await Nota.findOneAndReplace({id: input.id, deleted: true}, input, {upsert: true, ...updateOps});
 
             return resolve(data);
         }
@@ -53,7 +66,7 @@ exports.get = async (input) =>
         };
         
         try {
-            input = await retrieve_schema.validateAsync(input);
+            input = await get_schema.validateAsync(input);
             const aggregate = Nota.aggregate();
             
             aggregate
@@ -74,7 +87,7 @@ exports.get = async (input) =>
 exports.update = async (input) => 
     new Promise(async (resolve, reject) => {
         try {
-            input = await nota_schema.validateAsync(input);
+            input = await update_schema.validateAsync(input);
 
             if (!(typeof input.total === 'number' && isFinite(input.total))) {
                 // Convert from pattern to numbers

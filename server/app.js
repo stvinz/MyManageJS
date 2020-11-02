@@ -22,7 +22,7 @@ require('./bootstrap/database');
 /*-----------------
     Data Parser
 ------------------*/
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 /*----------------------

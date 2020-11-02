@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { LNAEForm } from '../../../../../components';
 import { nota } from '../../../../../services';
+import { setContent } from '../../../../../slices/notaSlice';
 
 function EditForm(props) {
     const cl = () => props.onClose();
+    const dispatch = useDispatch();
+
     const initialValues = {
         id: props.data.id, 
         dateCreated: props.data.dateCreated.substring(0, 10), 
@@ -17,18 +21,19 @@ function EditForm(props) {
         dateCreated: false,
         total: false
     };
-    const handleSubmit = (values, { setSubmitting }) => {
+    const handleSubmit = (values, { resetForm, setSubmitting }) => {
         nota.edit(values)
             .then((res) => {
-                console.log(res);
+                setErr(initErr);
+                dispatch(setContent(res));
+                
+                window.alert("Berhasil edit bon!");
+                resetForm();
+                setSubmitting(false);
 
-                setSubmitting(true)
-
-                return props.onClose();
+                return cl();
             })
             .catch((err) => {
-                window.alert(err);
-
                 if (err.path) {
                     var changeErr = {
                         id: false,
@@ -41,6 +46,7 @@ function EditForm(props) {
                     setErr(changeErr);
                 }
 
+                window.alert(err.message);
                 return setSubmitting(false);
             });
     };

@@ -24,7 +24,7 @@ function LKAEForm(props) {
     return (
         <div>
             <Typography variant="h6" component="h6">{props.title}</Typography>
-            <Formik initialValues={props.initialValues} onSubmit={props.handleSubmit}>
+            <Formik initialValues={props.initialValues} onSubmit={props.onSubmit}>
                 {({values}) => (
                     <Form>
                         <CField label="Nama" {...binder('name')} />

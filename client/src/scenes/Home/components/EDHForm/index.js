@@ -4,14 +4,18 @@
 import React, { useState } from 'react';
 import { Typography } from '@material-ui/core';
 import { Menu, Item } from 'react-contexify';
+import { useDispatch } from 'react-redux';
 
 import { EditForm, DeleteForm } from './components';
 import { CModal } from '../../../../components';
 import { nota } from '../../../../services';
 
+import { setContent } from '../../../../slices/notaSlice';
+
 import 'react-contexify/dist/ReactContexify.min.css';
 
-function TableForm(){
+function TableForm() {
+    const dispatch = useDispatch();
     /*----------------------------
         ContextMenu Handlers
     ----------------------------*/
@@ -26,7 +30,9 @@ function TableForm(){
     };
 
     const handleHighlight = ({ props }) => {
-        
+        nota.highlight(props.nota)
+            .then((res) => dispatch(setContent(res)))
+            .catch((err) => window.alert(err.message));
     };
 
     /*---------------------------

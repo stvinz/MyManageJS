@@ -12,7 +12,7 @@ function LNAEForm(props) {
     return (
         <div>
             <Typography variant="h6" component="h6">{props.title}</Typography>
-            <Formik initialValues={props.initialValues} onSubmit={props.handleSubmit}>
+            <Formik initialValues={props.initialValues} onSubmit={props.onSubmit}>
                 <Form>
                     <CField label="No Bon" {...binder('id')} autoFocus />
                     <CField label="Tanggal" type="date" {...binder('dateCreated')} />

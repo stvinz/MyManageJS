@@ -2,7 +2,7 @@ const NotaServices = require('../services/NotaServices');
 
 const NotaController = async (req, res) => {
     var input = req.body;
-    var data, msg, status = 200;
+    var data, msg, error, status = 200;
 
     try {
         switch (req.method) {
@@ -28,11 +28,14 @@ const NotaController = async (req, res) => {
     }
     catch (err) {
         data = null;
-        msg = err.message;
+        error = {
+            message: err.details ? err.details[0].message : err.message,
+            path: err.details ? err.details[0].path[0] : null
+        };
         status = 400;
     }
 
-    return res.status(status).json({data: data, msg: msg});
+    return res.status(status).json({data: data, message: msg, err: error});
 };
 
 module.exports = NotaController;

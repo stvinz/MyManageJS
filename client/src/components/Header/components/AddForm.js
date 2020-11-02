@@ -2,12 +2,15 @@
     Add Form Components
 ------------------------*/
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { CModal, LNAEForm, LKAEForm } from '../../../components';
 import { nota } from '../../../services';
+import { setContent } from '../../../slices/notaSlice';
 
 function AddForm(props) {
     const cl = () => props.onClose();
+    const dispatch = useDispatch();
 
     const AddNota = () => {
         const initialValues = {
@@ -24,15 +27,15 @@ function AddForm(props) {
         };
         const handleSubmit = (values, { setSubmitting, resetForm }) => {
             nota.add(values)
-                .then(() => {
-                    window.alert("Berhasil tambah bon baru!");
+                .then((res) => {
+                    setErr(initErr);
+                    dispatch(setContent(res));
                     
+                    window.alert("Berhasil tambah bon baru!");
                     resetForm();
                     return setSubmitting(false);
                 })
                 .catch((err) => {
-                    window.alert(err);
-    
                     if (err.path) {
                         var changeErr = {
                             id: false,
@@ -44,7 +47,8 @@ function AddForm(props) {
     
                         setErr(changeErr);
                     }
-    
+
+                    window.alert(err.message);
                     return setSubmitting(false);
                 });
         };

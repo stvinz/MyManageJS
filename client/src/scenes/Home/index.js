@@ -1,12 +1,14 @@
 /*--------------------
       Home page
 ---------------------*/
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { Paper, TableContainer } from '@material-ui/core';
 import { contextMenu } from 'react-contexify';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { EDHForm } from './components';
 import { TableView } from '../../components';
+import { selectNota, setContent } from '../../slices/notaSlice';
 
 import { nota } from '../../services';
 
@@ -16,12 +18,15 @@ function Home(){
     --------------------*/
     const titles = ["No. Bon", "Tanggal", "Nama", "Jumlah"];
     const names = ["id", "dateCreated", "name", "total"];
-    const [content, upContent] = useState([{
-        "id":1,
-        "name":"John",
-        "total":120,
-        "dateCreated":"2020-10-28T13:16:49.000Z",
-    }]);
+    const content = useSelector(selectNota).docs;
+    const getOps = useSelector(selectNota).getOps;
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+         nota.get(getOps)
+            .then((res) => dispatch(setContent(res)))
+            .catch((err) => window.alert(err.message));
+    }, [dispatch, getOps]);
     
     /*---------------------------
         Component and Modals
